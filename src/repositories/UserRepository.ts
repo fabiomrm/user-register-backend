@@ -10,7 +10,7 @@ class UserRepository {
         const salt = bcrypt.genSaltSync(Number(10));
         const hash = bcrypt.hashSync(user.password, salt);
         
-        
+        console.log(user);
         user.password = hash;
         
         const userCreated = await db.user.create({
