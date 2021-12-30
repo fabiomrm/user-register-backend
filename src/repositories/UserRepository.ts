@@ -2,7 +2,7 @@ import { PrismaClient, User } from "@prisma/client";
 import bcrypt from 'bcrypt';
 // import { encrypt } from "../helper/encrypt";
 
-export class UserRepository {
+class UserRepository {
     async createUser(user: User): Promise<User | string>
     {
         const db = new PrismaClient();
@@ -12,7 +12,7 @@ export class UserRepository {
         
         
         user.password = hash;
-        console.log(`hash: ${user.password}`)
+        
         const userCreated = await db.user.create({
             data: user,
         });
@@ -26,9 +26,10 @@ export class UserRepository {
         const db = new PrismaClient();
 
         try {
+            
             return await db.user.findUnique({
                 where: {
-                    email
+                    email: email,
                 }
             });
             
@@ -60,3 +61,5 @@ export class UserRepository {
         }
     };
 }
+
+export default new UserRepository();

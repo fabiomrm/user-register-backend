@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+// import { User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 
 // export const encrypt = (data: User) => {
@@ -7,6 +7,8 @@ import bcrypt from 'bcrypt';
 //     const hash = bcrypt.hashSync(data.password, salt);
 
 //     data.password = hash;
+    
+//     return data;
 // };
 
 export const decrypt = (password: string, hashedPassword: string) => {

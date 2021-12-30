@@ -22,7 +22,7 @@ export async function JWTAuthenticationMiddleware(req: Request, res: Response, n
 
     } catch(err) {
 
-        res.status(401).json({message: "Usuário não autorizado."});
+        res.status(401).json({message: "Usuário não autorizado. [msg middleware]"});
     }
 
 }

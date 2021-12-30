@@ -1,18 +1,17 @@
 import { Request, Response, NextFunction } from "express";
-import { UserRepository } from "../repositories/UserRepository";
+import  UserRepository  from "../repositories/UserRepository";
 import { User } from "@prisma/client";
 import { decrypt } from "../helper/encrypt";
 import * as JWT from 'jsonwebtoken';
 
-const userRepository = new UserRepository();
 
-export class AuthController {
+class AuthController {
     async signUp(req: Request, res: Response, next: NextFunction): Promise<void | Record<string, any>> {
 
         const user: User = req.body;
 
         try {
-            const createdUser = await userRepository.createUser(req.body);
+            const createdUser = await UserRepository.createUser(req.body);
             console.log(createdUser);
             res.status(201).send({ createdUser })
 
@@ -25,7 +24,7 @@ export class AuthController {
     async signIn(req: Request, res: Response, next: NextFunction): Promise<null | Record<string, any>> {
         const { email, password } = req.body;
 
-        const user = await  userRepository.findByEmail(email);
+        const user = await  UserRepository.findByEmail(email);
 
         if(user) {
 
@@ -51,3 +50,5 @@ export class AuthController {
 
     }
 }
+
+export default new AuthController();
