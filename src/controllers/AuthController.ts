@@ -12,7 +12,7 @@ class AuthController {
 
         try {
             const createdUser = await UserRepository.createUser(req.body);
-            console.log(createdUser);
+            
             res.status(201).send({ createdUser })
 
         }catch(err) {
