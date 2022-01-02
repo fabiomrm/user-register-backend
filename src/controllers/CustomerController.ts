@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import CustomerRepository from '../repositories/CustomerRepository';
+import { Customer } from '@prisma/client';
 
 class CustomerController {
 
@@ -17,39 +18,23 @@ class CustomerController {
     }
 
     async save(req: Request, res: Response, next: NextFunction) {
-        
-    }
+        const customer: Customer = req.body;
 
-    async insert(req: Request, res: Response, next: NextFunction) {
-        
-        // const customer: Customer = req.body;
-        
-        // customer.userId = (req as any).userId;
-       
+        customer.userId = (req as any).userId
 
-        // const db = new PrismaClient();
-        
-        // try {
-        //     const createdCustomer = await db.customer.create({
-        //         data: customer,
-        //     });
-
-        //     res.status(201).send({ createdCustomer });
+        try {
+            const handledCustomer = await CustomerRepository.handleCustomer(customer);
+            console.log(handledCustomer);
+            res.status(201).json(handledCustomer);
             
-        // } catch(e) {
-        //     throw e;
-        // }
+        } catch(e) {
+            res.status(500).json({message: "Dados insuficientes para cadastrar cliente."});
+        }
 
-        // finally {
-        //     db.$disconnect();   
-        // }
+
+
+    
     }
-
-    async update(req: Request, res: Response, next: NextFunction) {
-
-    }
-
-
 }
 
 export default new CustomerController();

@@ -19,16 +19,35 @@ class CustomerRepository {
         }
     }
 
-    async handleCostumer() {
+    async handleCustomer(customer: Customer) {
         
+        if(customer.id && customer.id > 0) {
+            return await this.update(customer);
+       } else {
+            return await this.insert(customer);
+       }
+    
     }
 
-    async insert() {
+    async insert(customer: Customer) {
+        
+        const db = new PrismaClient();
+        try {
+            const createdCustomer = await db.customer.create({
+                data: customer,
+            });
 
+            return createdCustomer;
+
+        }catch(e) {
+            throw e;
+        } finally {
+            db.$disconnect();
+        }
     }
 
-    async update() {
-
+    async update(customer: Customer) {
+        console.log('oi do update')
     }
 
 }

@@ -7,6 +7,6 @@ const router = Router();
 
 router.get("/customers", JWTAuthenticationMiddleware, CustomerController.fetch);
 
-router.post("/customer", JWTAuthenticationMiddleware, CustomerController.insert);
+router.post("/customers", JWTAuthenticationMiddleware, CustomerController.save);
 
 export default router;
