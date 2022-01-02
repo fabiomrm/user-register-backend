@@ -22,6 +22,7 @@ class CustomerRepository {
     async handleCustomer(customer: Customer) {
         
         if(customer.id && customer.id > 0) {
+           
             return await this.update(customer);
        } else {
             return await this.insert(customer);
@@ -47,7 +48,30 @@ class CustomerRepository {
     }
 
     async update(customer: Customer) {
-        console.log('oi do update')
+        const db = new PrismaClient();
+       
+        try {
+            console.log(customer)
+
+            const updatedCustomer = await db.customer.update({
+                data: {
+                    name: customer.name,
+                    email: customer.email,
+                    phone: customer.phone,
+                },
+                where: {
+                    id: Number(customer.id),
+                }
+            });
+           
+           
+            return updatedCustomer;
+
+        }catch(e) {
+            throw e;
+        } finally {
+            db.$disconnect();
+        }
     }
 
 }

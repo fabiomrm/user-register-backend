@@ -26,9 +26,10 @@ class CustomerController {
             const handledCustomer = await CustomerRepository.handleCustomer(customer);
             console.log(handledCustomer);
             res.status(201).json(handledCustomer);
-            
+
         } catch(e) {
-            res.status(500).json({message: "Dados insuficientes para cadastrar cliente."});
+    
+            res.status(500).json({message: "Dados insuficientes para cadastrar/atualizar cliente."});
         }
 
 
