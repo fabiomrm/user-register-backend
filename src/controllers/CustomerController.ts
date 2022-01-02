@@ -8,9 +8,9 @@ class CustomerController {
 
         const userId: number = (req as any).userId;
         try {
-            const costumers = await CustomerRepository.findAll(userId)
-
-            res.json(costumers);
+            const customers = await CustomerRepository.findAll(userId)
+            
+            res.json(customers);
             
         }catch(e) {
             res.status(500).json({message: "Não foi possível obter os clientes. "});
@@ -24,17 +24,18 @@ class CustomerController {
 
         try {
             const handledCustomer = await CustomerRepository.handleCustomer(customer);
-            console.log(handledCustomer);
+            
             res.status(201).json(handledCustomer);
 
         } catch(e) {
-    
+            
             res.status(500).json({message: "Dados insuficientes para cadastrar/atualizar cliente."});
         }
 
+    }
 
-
-    
+    async delete(req: Request, res: Response, next: NextFunction) {
+        
     }
 }
 

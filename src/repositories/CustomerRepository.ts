@@ -9,6 +9,9 @@ class CustomerRepository {
                 where: {
                     userId: id,
                 },
+                orderBy: {
+                    name: "asc"
+                }
             })
 
             return customers;
@@ -34,8 +37,14 @@ class CustomerRepository {
         
         const db = new PrismaClient();
         try {
+            
             const createdCustomer = await db.customer.create({
-                data: customer,
+                data: {
+                    name: customer.name,
+                    email: customer.email,
+                    phone: customer.phone,
+                    user: { connect: { id: customer.userId }}
+                }
             });
 
             return createdCustomer;
