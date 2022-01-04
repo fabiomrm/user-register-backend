@@ -60,8 +60,6 @@ class CustomerRepository {
         const db = new PrismaClient();
        
         try {
-            console.log(customer)
-
             const updatedCustomer = await db.customer.update({
                 data: {
                     name: customer.name,
@@ -81,6 +79,29 @@ class CustomerRepository {
         } finally {
             db.$disconnect();
         }
+    }
+
+    async updatePicture(id: number, pictureUrl: string) {
+        const db = new PrismaClient();
+        
+
+        try {
+            const updatedCustomer = await  db.customer.update({
+                data: {
+                    pictureUrl
+                }, 
+                where: {
+                    id
+                },
+            });
+            
+            return updatedCustomer;
+        } catch(e) {
+            throw e;
+        } finally {
+            db.$disconnect();
+        }
+       
     }
 
 }

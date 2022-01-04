@@ -23,6 +23,7 @@ model Customer {
   name String
   email String
   phone String
+  pictureUrl String?
   userId Int
   user User @relation(fields: [userId], references: [id])
 }
